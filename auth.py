@@ -1,28 +1,11 @@
-# import requests
-# import json
-
-# # r = requests.get("https://hosting.wialon.com/login.html?client_id=wialon&access_type=256&activation_time=0&duration=0&lang=en&flags=0&user=Kenpoly", auth=('Kenpoly', 'Kenpoly@24'))
-# r = requests.get('https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"98af207443191952de3c0d6c7b1d1e7bEEA2F8DD25ADCA95BD68D7C83D6BE334B587D98E"}')
-# r = str(r.text)
-# response = json.loads(r)
-# sid = response['eid']
-# print(json.dumps(response, indent=1))
-# print(type(r))
-
-# r = requests.get('https://hst-api.wialon.com/wialon/ajax.html?svc=core/search_items&params={"spec":{"itemsType":"avl_unit","propName":"sys_name","propValueMask":"*","sortType":"sys_name"},"force":1,"flags":1,"from":0,"to":0}&sid=sid')
-# r = str(r.text)
-# response = json.loads(r)
-# print(json.dumps(response, indent=1))
-
-# r = requests.get('https://hst-api.wialon.com/wialon/ajax.html?svc=report/exec_report&params={"reportResourceId":1,"reportTemplateId":1,"reportObjectId":1,"reportObjectSecId":0,"interval":{"from":1720608708,"to":1720695108,"flags":0}}&sid=sid')
-# r = str(r.text)
-# response = json.loads(r)
-# print(json.dumps(response, indent=1))
-
 import requests
 import json
 from collections import deque
 import pandas as pd
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # This line brings all environment variables from .env into os.environ
 
 def remove_keys(d, keys_to_remove):
     # Queue to store dictionaries to be processed
@@ -69,8 +52,8 @@ def rename_keys(d, key_map):
     return new_data
 
 # Define your API token and base URL
-API_TOKEN = '98af207443191952de3c0d6c7b1d1e7b5300B4E05C4637A09E764A3A2D2E61F54A1745BE'
-BASE_URL = 'https://hst-api.wialon.com/wialon/ajax.html?'
+API_TOKEN = os.environ['API_TOKEN']
+BASE_URL = os.environ['BASE_URL']
 
 # Function to authenticate and get a session ID
 def authenticate():
@@ -941,7 +924,7 @@ def eco_driving_v2(time_from, time_to):
 #     print(result)
 
 
-eco_driving_v2(1717243200, 1721304000)
+# eco_driving_v2(1717243200, 1721304000)
 # group_events(1717243200, 1721304000)
 # events(1717243200, 1721304000)
 # trips_v2(1717243200, 1721304000)
